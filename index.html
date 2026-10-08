@@ -19,6 +19,7 @@
 
     <main>
 
+        <!-- ОСНОВНЫЕ ВКЛАДКИ -->
         <div class="tabs">
 
             <button onclick="openTab('aliya')">
@@ -33,9 +34,14 @@
                 Аяжан
             </button>
 
+            <button onclick="openTab('task5')">
+                Task 5
+            </button>
+
         </div>
 
 
+        <!-- АЛИЯ -->
         <section id="aliya" class="tab-content active">
 
             <h2>Алия</h2>
@@ -45,6 +51,7 @@
         </section>
 
 
+        <!-- ТИМУР -->
         <section id="timur" class="tab-content">
 
             <h2>Тимур</h2>
@@ -54,6 +61,7 @@
         </section>
 
 
+        <!-- АЯЖАН -->
         <section id="ayazhan" class="tab-content">
 
             <h2>Аяжан</h2>
@@ -62,11 +70,101 @@
 
         </section>
 
+
+        <!-- TASK 5 -->
+        <section id="task5" class="tab-content products-section">
+
+            <h2>Task 5 — Products</h2>
+
+            <p>Product management using DummyJSON API</p>
+
+
+            <!-- ПОИСК -->
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Введите название товара..."
+                >
+
+                <button onclick="searchProducts()">
+                    Search
+                </button>
+
+                <button onclick="loadProducts()">
+                    Show all
+                </button>
+
+            </div>
+
+
+            <!-- ДОБАВЛЕНИЕ ТОВАРА -->
+            <div class="add-product">
+
+                <h3>Add new product</h3>
+
+                <input
+                    type="text"
+                    id="productTitle"
+                    placeholder="Название товара"
+                >
+
+                <input
+                    type="number"
+                    id="productPrice"
+                    placeholder="Цена"
+                >
+
+                <input
+                    type="text"
+                    id="productCategory"
+                    placeholder="Категория"
+                >
+
+                <input
+                    type="text"
+                    id="productImage"
+                    placeholder="Ссылка на картинку"
+                >
+
+                <textarea
+                    id="productDescription"
+                    placeholder="Описание товара"
+                ></textarea>
+
+                <input
+                    type="number"
+                    id="productRating"
+                    placeholder="Рейтинг"
+                    min="0"
+                    max="5"
+                    step="0.1"
+                >
+
+                <button onclick="addProduct()">
+                    Add product
+                </button>
+
+            </div>
+
+
+            <!-- ТОВАРЫ -->
+            <div id="productsContainer" class="products-container">
+
+                <p>Loading products...</p>
+
+            </div>
+
+        </section>
+
     </main>
 
 
     <footer>
+
         <p>© 2026 Our Team</p>
+
     </footer>
 
 
