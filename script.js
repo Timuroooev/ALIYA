@@ -568,3 +568,191 @@ document.getElementById("sortSelect").addEventListener("change", renderProducts)
 // ========================================
 
 loadProducts();
+```javascript
+const TASKS_API = "https://dummyjson.com/todos";
+const USERS_API = "https://dummyjson.com/users";
+
+let tasks = [];
+let selectedTask = null;
+let savedTasks = JSON.parse(localStorage.getItem("savedTasks")) || [];
+
+// Load tasks
+async function loadTasks() {
+    const container = document.getElementById("tasksContainer");
+
+    if (!container) return;
+
+    container.innerHTML = "<p>Loading tasks...</p>";
+
+    try {
+        const response = await fetch(TASKS_API + "?limit=30");
+
+        if (!response.ok) {
+            throw new Error("Failed to load tasks");
+        }
+
+        const data = await response.json();
+        tasks = data.todos;
+
+        renderTasks();
+    } catch (error) {
+        container.innerHTML = "<p>Could not load tasks. Please try again.</p>";
+        console.error(error);
+    }
+}
+
+// Display tasks
+function renderTasks() {
+    const container = document.getElementById("tasksContainer");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    tasks.forEach(task => {
+        const card = document.createElement("div");
+        card.className = "task-card";
+
+        if (savedTasks.includes(task.id)) {
+            card.classList.add("saved-task");
+        }
+
+        const title = document.createElement("h3");
+        title.textContent = task.todo;
+
+        const id = document.createElement("p");
+        id.textContent = "Task ID: " + task.id;
+
+        const userId = document.createElement("p");
+        userId.textContent = "User ID: " + task.userId;
+
+        const status = document.createElement("p");
+        status.textContent = "Status: " +
+            (task.completed ? "Completed" : "Not completed");
+
+        const button = document.createElement("button");
+        button.textContent = "View Details";
+
+        button.addEventListener("click", () => {
+            openTaskDetails(task.id);
+        });
+
+        card.append(title, id, userId, status, button);
+
+        card.addEventListener("click", () => {
+            openTaskDetails(task.id);
+        });
+
+        container.appendChild(card);
+    });
+}
+
+// Open task details
+function openTaskDetails(taskId) {
+    selectedTask = tasks.find(task => task.id === taskId);
+
+    if (!selectedTask) return;
+
+    document.getElementById("taskId").textContent = selectedTask.id;
+    document.getElementById("taskUserId").textContent = selectedTask.userId;
+    document.getElementById("taskTitle").textContent = selectedTask.todo;
+
+    document.getElementById("taskStatus").textContent =
+        selectedTask.completed ? "Completed" : "Not completed";
+
+    document.getElementById("saveTaskButton").textContent =
+        savedTasks.includes(selectedTask.id) ? "Saved ✓" : "Save";
+
+    document.getElementById("taskModal").style.display = "block";
+}
+
+// Save task
+function saveTask() {
+    if (!selectedTask) return;
+
+    if (!savedTasks.includes(selectedTask.id)) {
+        savedTasks.push(selectedTask.id);
+
+        localStorage.setItem(
+            "savedTasks",
+            JSON.stringify(savedTasks)
+        );
+    }
+
+    document.getElementById("saveTaskButton").textContent = "Saved ✓";
+
+    renderTasks();
+}
+
+// Open full user information
+async function openTaskUser() {
+    if (!selectedTask) return;
+
+    const modal = document.getElementById("taskUserModal");
+    const info = document.getElementById("taskUserInfo");
+
+    modal.style.display = "block";
+    info.textContent = "Loading user information...";
+
+    try {
+        const response = await fetch(
+            USERS_API + "/" + selectedTask.userId
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to load user");
+        }
+
+        const user = await response.json();
+
+        info.replaceChildren();
+
+        function addUserField(label, value) {
+            const paragraph = document.createElement("p");
+            const strong = document.createElement("strong");
+
+            strong.textContent = label + ": ";
+            paragraph.append(strong, document.createTextNode(value || "N/A"));
+
+            info.appendChild(paragraph);
+        }
+
+        addUserField("User ID", user.id);
+        addUserField("First Name", user.firstName);
+        addUserField("Last Name", user.lastName);
+        addUserField("Age", user.age);
+        addUserField("Email", user.email);
+        addUserField("Phone", user.phone);
+
+        addUserField(
+            "Address",
+            [
+                user.address?.address,
+                user.address?.city,
+                user.address?.state
+            ].filter(Boolean).join(", ")
+        );
+
+        addUserField("Company", user.company?.name);
+        addUserField("Department", user.company?.department);
+        addUserField("Job Title", user.company?.title);
+
+    } catch (error) {
+        info.textContent = "Could not load user information.";
+        console.error(error);
+    }
+}
+
+// Close task modal
+function closeTaskModal() {
+    document.getElementById("taskModal").style.display = "none";
+}
+
+// Close user modal
+function closeTaskUserModal() {
+    document.getElementById("taskUserModal").style.display = "none";
+}
+
+// Load tasks when the page opens
+loadTasks();
+```
