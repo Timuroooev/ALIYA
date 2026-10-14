@@ -22,7 +22,7 @@
             <button onclick="openTab('aliya')">Алия</button>
             <button onclick="openTab('timur')">Тимур</button>
             <button onclick="openTab('ayazhan')">Аяжан</button>
-            <button onclick="openTab('task5')">Task 5</button>
+            <button onclick="openTab('tasks')">Tasks</button>
         </div>
 
         <!-- АЛИЯ -->
@@ -76,6 +76,45 @@
                 </button>
 
             </div>
+            ```html
+<!-- Tasks Tab -->
+<div id="tasks" class="tab-content">
+    <h2>Tasks</h2>
+
+    <div id="tasksContainer" class="tasks-container">
+        <p>Loading tasks...</p>
+    </div>
+</div>
+
+<!-- Task Details Modal -->
+<div id="taskModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeTaskModal()">&times;</span>
+
+        <h2>Task Details</h2>
+
+        <p><strong>Task ID:</strong> <span id="taskId"></span></p>
+        <p><strong>User ID:</strong> <span id="taskUserId"></span></p>
+        <p><strong>Task:</strong></p>
+        <p id="taskTitle"></p>
+        <p><strong>Status:</strong> <span id="taskStatus"></span></p>
+
+        <button id="saveTaskButton" onclick="saveTask()">Save</button>
+        <button onclick="openTaskUser()">Open</button>
+    </div>
+</div>
+
+<!-- User Details Modal -->
+<div id="taskUserModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeTaskUserModal()">&times;</span>
+
+        <h2>User Information</h2>
+
+        <div id="taskUserInfo">Loading user...</div>
+    </div>
+</div>
+
 
             <!-- СПИСОК ТОВАРОВ -->
             <div id="productsContainer" class="products-container">
