@@ -379,66 +379,7 @@ footer {
         max-width: none;
     }
 }
-```css
-.tasks-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    margin-top: 20px;
-}
 
-.task-card {
-    background: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.task-card:hover {
-    transform: translateY(-4px);
-}
-
-.task-card h3 {
-    margin-top: 0;
-}
-
-.task-card p {
-    color: #555;
-}
-
-.task-card button,
-#taskModal button {
-    padding: 10px 16px;
-    margin-top: 10px;
-    margin-right: 8px;
-    border: none;
-    border-radius: 8px;
-    background: #7654d6;
-    color: white;
-    cursor: pointer;
-}
-
-.task-card button:hover,
-#taskModal button:hover {
-    background: #5c3db5;
-}
-
-.saved-task {
-    border: 2px solid #7654d6;
-}
-
-#taskUserInfo p {
-    margin: 10px 0;
-    line-height: 1.5;
-}
-
-#taskUserInfo a {
-    color: #7654d6;
-    overflow-wrap: anywhere;
-}
-``````css
 .tasks-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
