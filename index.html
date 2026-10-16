@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html lang="ru">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Team</title>
+    <title>Our Team Project</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-    <header>
+    <header class="site-header">
         <h1>Our Team</h1>
         <p>Web Development Project</p>
     </header>
 
+    <nav class="tabs">
+        <button class="tab-button active" onclick="openTab('aliya', this)">Aliya</button>
+        <button class="tab-button" onclick="openTab('timur', this)">Timur</button>
+        <button class="tab-button" onclick="openTab('ayazhan', this)">Ayazhan</button>
+        <button class="tab-button" onclick="openTab('tasks', this)">Tasks</button>
+    </nav>
+
     <main>
+<<<<<<< HEAD
 
         <!-- ВКЛАДКИ -->
         <div class="tabs">
@@ -27,178 +33,101 @@
         </div>
         
         <!-- АЛИЯ -->
+=======
+>>>>>>> 112f1c27b1e2749c279f56443dc3aee2b4c44841
         <section id="aliya" class="tab-content active">
-            <h2>Алия</h2>
-            <p>Участник команды</p>
+            <h2>Aliya</h2>
+            <p>Team member</p>
         </section>
 
-        <!-- ТИМУР -->
         <section id="timur" class="tab-content">
-            <h2>Тимур</h2>
-            <p>Участник команды</p>
+            <h2>Timur</h2>
+            <p>Team member</p>
         </section>
 
-        <!-- АЯЖАН -->
         <section id="ayazhan" class="tab-content">
-            <h2>Аяжан</h2>
-            <p>Участник команды</p>
+            <h2>Ayazhan</h2>
+            <p>Team member</p>
         </section>
 
-        <!-- TASK 5 -->
-        <section id="task5" class="tab-content products-section">
+        <section id="tasks" class="tab-content">
+            <h2>Tasks</h2>
 
-            <h2>Products</h2>
-            <p>Product management using DummyJSON API</p>
+            <p class="section-description">
+                Browse tasks, save your favorites, and view user information.
+            </p>
 
-            <!-- ПОИСК И ДОБАВЛЕНИЕ -->
-            <div class="toolbar">
-
+            <div class="task-toolbar">
                 <input
                     type="text"
-                    id="searchInput"
-                    placeholder="Search products..."
+                    id="taskSearch"
+                    placeholder="Search tasks..."
+                    aria-label="Search tasks"
                 >
 
-                <select id="categoryFilter">
-                    <option value="">All categories</option>
-                </select>
-
-                <select id="sortSelect">
-                    <option value="">Default sorting</option>
-                    <option value="title-asc">Name: A to Z</option>
-                    <option value="title-desc">Name: Z to A</option>
-                    <option value="price-asc">Price: Low to High</option>
-                    <option value="price-desc">Price: High to Low</option>
-                    <option value="rating-desc">Highest Rating</option>
-                </select>
-
-                <button onclick="openAddModal()" class="primary-button">
-                    + Add Product
-                </button>
-
+                <button id="searchButton" type="button">Search</button>
+                <button id="showAllButton" type="button">Show all</button>
+                <button id="savedButton" type="button">Saved tasks</button>
             </div>
 
-            <!-- СПИСОК ТОВАРОВ -->
-            <div id="productsContainer" class="products-container">
-                <p>Loading products...</p>
-            </div>
+            <p id="taskStatus" role="status">Preparing tasks...</p>
 
+            <div id="tasksContainer" class="tasks-container">
+                <p>Loading tasks...</p>
+            </div>
         </section>
-
     </main>
 
-    <!-- МОДАЛЬНОЕ ОКНО ДОБАВЛЕНИЯ И РЕДАКТИРОВАНИЯ -->
-    <div id="productModal" class="modal">
-
+    <!-- Task Details Modal -->
+    <div id="taskModal" class="modal" aria-hidden="true">
         <div class="modal-content">
-
             <button
                 class="close-button"
-                onclick="closeProductModal()"
+                id="closeTaskModal"
+                type="button"
                 aria-label="Close"
-            >&times;</button>
+            >×</button>
 
-            <h2 id="modalTitle">Add Product</h2>
+            <h2>Task details</h2>
 
-            <form id="productForm">
+            <p><strong>Task ID:</strong> <span id="detailTaskId"></span></p>
+            <p><strong>User ID:</strong> <span id="detailUserId"></span></p>
 
-                <label for="productTitle">Product name</label>
-                <input
-                    type="text"
-                    id="productTitle"
-                    required
-                >
+            <h3>Full task title</h3>
+            <p id="detailTaskTitle"></p>
 
-                <label for="productPrice">Price</label>
-                <input
-                    type="number"
-                    id="productPrice"
-                    min="0.01"
-                    step="0.01"
-                    required
-                >
+            <p><strong>Completed:</strong> <span id="detailTaskCompleted"></span></p>
 
-                <label for="productCategory">Category</label>
-                <input
-                    type="text"
-                    id="productCategory"
-                    list="categoryOptions"
-                    required
-                >
-
-                <datalist id="categoryOptions"></datalist>
-
-                <label for="productTags">Tags (comma-separated)</label>
-                <input
-                    type="text"
-                    id="productTags"
-                    placeholder="beauty, skincare"
-                >
-
-                <label for="productImage">Image URL</label>
-                <input
-                    type="url"
-                    id="productImage"
-                    placeholder="https://example.com/image.jpg"
-                >
-
-                <label for="productDescription">Description</label>
-                <textarea
-                    id="productDescription"
-                    rows="4"
-                    required
-                ></textarea>
-
-                <label for="productRating">Rating (0–5)</label>
-                <input
-                    type="number"
-                    id="productRating"
-                    min="0"
-                    max="5"
-                    step="0.1"
-                    value="0"
-                >
-
-                <div class="modal-actions">
-                    <button type="button" onclick="closeProductModal()">
-                        Cancel
-                    </button>
-
-                    <button type="submit" class="primary-button">
-                        Save Product
-                    </button>
-                </div>
-
-            </form>
-
-        </div>
-
-    </div>
-
-    <!-- МОДАЛЬНОЕ ОКНО ПОДРОБНОЙ ИНФОРМАЦИИ -->
-    <div id="detailsModal" class="modal">
-
-        <div class="modal-content details-content">
-
-            <button
-                class="close-button"
-                onclick="closeDetailsModal()"
-                aria-label="Close"
-            >&times;</button>
-
-            <div id="productDetails">
-                Loading product details...
+            <div class="modal-actions">
+                <button id="saveTaskButton" type="button">Save</button>
+                <button id="openUserButton" type="button">Open user</button>
             </div>
 
+            <p id="taskActionStatus" role="status"></p>
         </div>
+    </div>
 
+    <!-- User Details Modal -->
+    <div id="userModal" class="modal" aria-hidden="true">
+        <div class="modal-content user-modal-content">
+            <button
+                class="close-button"
+                id="closeUserModal"
+                type="button"
+                aria-label="Close"
+            >×</button>
+
+            <h2>User information</h2>
+
+            <p id="userStatus" role="status">Loading user...</p>
+            <div id="userDetails"></div>
+        </div>
     </div>
 
     <footer>
-        <p>© 2026 Our Team</p>
+        <p>Our Team Project — 2026</p>
     </footer>
 
     <script src="script.js"></script>
-
 </body>
 </html>
